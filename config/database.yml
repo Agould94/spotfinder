@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: spotfinder_production
-  username: spotfinder
-  password: <%= ENV["SPOTFINDER_DATABASE_PASSWORD"] %>
+  url: <%= ENV['FATABASE_URL'] %>
