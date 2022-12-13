@@ -34,7 +34,7 @@ function App() {
               <Home user={user}/>
             </Route>
             <Route path="/user">
-              <UserProfile user = {user}></UserProfile>
+              <UserProfile user = {user} onUpdateUser = {handleUpdateUser}></UserProfile>
             </Route>
             <Route path="/">
 

@@ -22,11 +22,18 @@ function NavBar({user, setUser}) {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
             { user ?
+            <Nav>
+                <Nav.Item>
+                    <Nav.Link as ={NavLink} to={"/user"}>
+                        Profile
+                    </Nav.Link>
+                </Nav.Item>
                 <Nav.Item>
                     <Nav.Link onClick = {handleLogout}>
                         Logout
                     </Nav.Link>
                 </Nav.Item>
+            </Nav>
                 :
             <Nav>
             <Nav.Item>
@@ -38,9 +45,6 @@ function NavBar({user, setUser}) {
                 <Nav.Link as = {NavLink} to={"/signup"}>
                 Sign Up
                 </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link as = {NavLink} to={`/user`}/>
             </Nav.Item>
             </Nav>
             }   

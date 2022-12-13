@@ -2,10 +2,10 @@ import React, {useState} from "react";
 
 function UserProfile({user, onUpdateUser}){
     const [clicked, setClicked] = useState(false)
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [vibe, setVibe] = useState("")
-    const [zip, setZip] = useState("")
+    const [name, setName] = useState(user.name)
+    const [email, setEmail] = useState(user.email)
+    const [vibe, setVibe] = useState(user.vibe)
+    const [zip, setZip] = useState(user.zip)
     
 
     function handleClick(){
@@ -34,7 +34,11 @@ function UserProfile({user, onUpdateUser}){
             body: JSON.stringify({name: name, email: email, vibe: vibe, zip: zip})
         })
         .then((r)=>r.json())
-        .then(onUpdateUser)
+        .then((user)=>{
+            onUpdateUser(user)
+            setClicked(!clicked)
+        }
+            )
     }
     
     // function handleUpdateRating(pct) {
@@ -55,7 +59,9 @@ return (
     <h1>
         {user.username}
     </h1>
+    <p>{user.name}</p>
     <p>{user.vibe}</p>
+    <p>{user.email}</p>
     <p>{user.zip}</p>
 
     {clicked ?
