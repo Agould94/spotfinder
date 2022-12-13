@@ -25,11 +25,11 @@ class UsersController < ApplicationController
     private 
 
     def find_user
-        user = User.find(params[:id])
+        user = User.find(session[:user_id])
     end
 
     def user_params
-        params.permit(:name, :username, :email, :password, :zip, :vibe, :password_confirmation)
+        params.permit(:name, :username, :email, :password, :password_confirmation, :zip, :vibe, :user)
     end
 
     def render_not_found_response

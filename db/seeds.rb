@@ -24,11 +24,16 @@ puts "Users created"
 
 puts "Seeding Restauraunts"
 
+food_types = ["American", "Italian", "Chinese", "Mexican"]
+
 50.times do |count|
     Restaurant.create(
         address: Faker::Address.full_address,
         phone_number: Faker::PhoneNumber.phone_number,
-        vibe: Faker::Adjective.positive
+        vibe: Faker::Adjective.positive,
+        name: Faker::Restaurant.name,
+        image_url: "image_url",
+        food_type: food_types.sample
     )
 end
 

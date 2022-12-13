@@ -1,28 +1,60 @@
 import {useState, useEffect} from 'react';
 import {BrowserRouter, Switch, Route} from "react-router-dom";
+import Login from './components/Login';
+import SignUp from './components/Signup';
+import Home from './components/Home';
+import NavBar from './components/Navbar';
+import UserProfile from './components/UserProfile';
 
 function App() {
-  const [count, setCount] = useState(0)
+  //const [count, setCount] = useState(0)
+  const [user, setUser] = useState(null)
+  console.log(user)
 
-  useEffect(()=>{
-    fetch("/hello")
-    .then((r)=>r.json())
-    .then((data)=>setCount(data.count))
-  }, [])
+  useEffect(() => {
+    // auto-login
+    fetch("/me")
+    .then((r) => r.json())
+    .then((data) => {
+      console.log(data) 
+      setUser(data)})
+  }, []);
+
+  function handleUpdateUser(updatedUser){
+    setUser(updatedUser)
+  }
 
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Switch>
-          <Route path = '/testing'>
-            <h1>Test Route</h1>
-          </Route>
-          <Route path = "/">
-            <h1>Page Count: {count}</h1>
-         </Route>
-        </Switch>
-      </div>
-    </BrowserRouter>
+    <>
+      <NavBar user={user} setUser={setUser} />
+      <main>
+        {user ? (
+          <Switch>
+            <Route exact path="/">
+              <Home user={user}/>
+            </Route>
+            <Route path="/user">
+              <UserProfile user = {user}></UserProfile>
+            </Route>
+            <Route path="/">
+
+            </Route>
+          </Switch>
+        ) : (
+          <Switch>
+            <Route path="/signup">
+              <SignUp setUser={setUser} />
+            </Route>
+            <Route path="/login">
+              <Login setUser={setUser} />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        )}
+      </main>
+    </>
   );
 }
 
