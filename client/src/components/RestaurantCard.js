@@ -1,12 +1,18 @@
 import React from 'react';
 import { useState } from 'react';
 import { Card, Image, Fade } from 'react-bootstrap';
+import {useHistory} from 'react-router-dom'
 
-function RestaurantCard({ restaurant }) {
+function RestaurantCard({ restaurant, handleSetRestaurant }) {
     const [reviewClick, setReviewClick] = useState(false)
     let image
-    
 
+    const history = useHistory()
+    
+    function handleDoubleClick(){
+        handleSetRestaurant(restaurant)
+        history.push(`/restaurants/${restaurant.id}`)
+    }
     function handleClick(){
         setReviewClick(!reviewClick)
     }
@@ -18,10 +24,8 @@ function RestaurantCard({ restaurant }) {
             image =restaurant.image_url
         }
     
-
-    
   return (
-    <Card className = "justify-content-center mx-auto mt-2" style={{width: "44%"}}>
+    <Card onDoubleClick={handleDoubleClick} className = "justify-content-center mx-auto mt-2" style={{width: "44%"}}>
       <Image src= {image} />
       <Card.Body>
         <div className="d-flex justify-content-between">

@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import RestaurantCard from './RestaurantCard';
 
-function RestaurantList({filter}) {
+function RestaurantList({filter, handleSetRestaurant}) {
   const [restaurants, setRestaurants] = useState([])
   const [filteredRestaurants, setFilteredRestaurants]=useState([])
   const [page, setPage] = useState(1)
@@ -45,7 +45,7 @@ function RestaurantList({filter}) {
   
   const cards = restaurants
   .map(restaurant => (
-    <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+    <RestaurantCard key={restaurant.id} restaurant={restaurant} handleSetRestaurant={handleSetRestaurant} />
   ))
 
   

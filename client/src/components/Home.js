@@ -4,7 +4,7 @@ import Filter from './Filter';
 import RestaurantList from './RestaurantList';
 
 
-function Home() {
+function Home({handleSetRestaurant}) {
     const [filter, setFilter] = useState("All")
   return (
     <Container className="justify-content-center home">
@@ -13,7 +13,7 @@ function Home() {
                 <Filter setFilter = {setFilter}></Filter>
             </Col>
             <Col>
-                <RestaurantList filter = {filter}/>
+                <RestaurantList filter = {filter} handleSetRestaurant = {handleSetRestaurant}/>
             </Col>
             <Col>
                 map
