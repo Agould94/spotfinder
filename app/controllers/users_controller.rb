@@ -21,6 +21,12 @@ class UsersController < ApplicationController
         end
     end
 
+    def update
+        user = find_user
+        user.update!(user_params)
+        render json: user
+    end
+
 
     private 
 
