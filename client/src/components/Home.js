@@ -4,6 +4,7 @@ import Filter from './Filter';
 import RestaurantList from './RestaurantList';
 
 
+
 function Home({handleSetRestaurant}) {
     const [filter, setFilter] = useState("All")
   return (
@@ -13,6 +14,7 @@ function Home({handleSetRestaurant}) {
                 <Filter setFilter = {setFilter}></Filter>
             </Col>
             <Col>
+                
                 <RestaurantList filter = {filter} handleSetRestaurant = {handleSetRestaurant}/>
             </Col>
             <Col>

@@ -1,7 +1,10 @@
 import React, {useState} from "react";
+import ReviewForm from "./ReviewForm";
+
+
 
 function RestaurantPage({restaurant}){
-
+    
     
     let reviewsToDisplay 
     if(restaurant.reviews){
@@ -23,11 +26,14 @@ function RestaurantPage({restaurant}){
             <p>{restaurant.food_type}</p>
             <p>{restaurant.address}</p>
             <p>{restaurant.phone_number}</p>
+            <ReviewForm></ReviewForm>
             {restaurant.reviews ? 
                 reviewsToDisplay
                 :
                 null
             }
+            <div>
+            </div>
         </div>
     )
 }
