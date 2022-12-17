@@ -3,7 +3,7 @@ import ReviewForm from "./ReviewForm";
 
 
 
-function RestaurantPage({restaurant}){
+function RestaurantPage({restaurant, user}){
     
     
     let reviewsToDisplay 
@@ -26,7 +26,7 @@ function RestaurantPage({restaurant}){
             <p>{restaurant.food_type}</p>
             <p>{restaurant.address}</p>
             <p>{restaurant.phone_number}</p>
-            <ReviewForm></ReviewForm>
+            <ReviewForm restaurant={restaurant} user = {user}></ReviewForm>
             {restaurant.reviews ? 
                 reviewsToDisplay
                 :

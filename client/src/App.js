@@ -39,7 +39,7 @@ function App() {
               <Home user={user} handleSetRestaurant={setRestaurant}/>
             </Route>
             <Route path = {`/restaurants/${restaurant.id}`}>
-                <RestaurantPage restaurant = {restaurant}></RestaurantPage>
+                <RestaurantPage restaurant = {restaurant} user = {user}></RestaurantPage>
             </Route>
             <Route path="/user">
               <UserProfile user = {user} onUpdateUser = {handleUpdateUser}></UserProfile>
