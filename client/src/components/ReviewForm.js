@@ -1,11 +1,12 @@
 import { Form, FormControl, Button } from 'react-bootstrap';
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 
-function ReviewForm({restaurant, user}) {
+function ReviewForm({restaurant, user, onReviewSubmit}) {
     const [content, setContent] = useState("")
 
     const [star, setStar] = useState(0)
     console.log(star)
+    const formRef=useRef(null)
 
     console.log(content)
     function handleSubmit(e) {
@@ -16,9 +17,14 @@ function ReviewForm({restaurant, user}) {
                "Content-Type": "application/json",
             },
             body: JSON.stringify({ stars: star, content: content, user_id: user.id, restaurant_id: restaurant.id  }),
-        }).then((r) => {
-           console.log(r)
-        });
+        }).then((r) => 
+           r.json()
+        ).then((data)=>{
+        console.log(data)
+        onReviewSubmit(data)
+        formRef.current.reset()
+    })
+        ;
     }
 
     function handleChange(event){
@@ -26,7 +32,7 @@ function ReviewForm({restaurant, user}) {
     }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} ref={formRef}>
         <label>Star Rating:</label>
         <div key = 'inline-radio'>
             <Form.Check

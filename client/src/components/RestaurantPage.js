@@ -1,14 +1,16 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import ReviewForm from "./ReviewForm";
 
 
 
 function RestaurantPage({restaurant, user}){
     
+    const [reviews, setReviews]= useState(restaurant.reviews)
+    
     
     let reviewsToDisplay 
     if(restaurant.reviews){
-        reviewsToDisplay = restaurant.reviews.map((review)=>{
+        reviewsToDisplay = reviews.map((review)=>{
         return(
         <div>
             <p>{review.stars}</p>
@@ -16,6 +18,10 @@ function RestaurantPage({restaurant, user}){
         </div>
         )}
     )}
+
+    function handleReviewSubmit(data){
+        setReviews([...reviews, data])
+    }
 
 
     return(
@@ -26,7 +32,7 @@ function RestaurantPage({restaurant, user}){
             <p>{restaurant.food_type}</p>
             <p>{restaurant.address}</p>
             <p>{restaurant.phone_number}</p>
-            <ReviewForm restaurant={restaurant} user = {user}></ReviewForm>
+            <ReviewForm restaurant={restaurant} user = {user} onReviewSubmit={handleReviewSubmit} ></ReviewForm>
             {restaurant.reviews ? 
                 reviewsToDisplay
                 :
