@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :images
   resources :reviews
   resources :restaurants
   resources :users
@@ -12,6 +13,8 @@ Rails.application.routes.draw do
 
   post "/signup", to: "users#create"
   get "/me", to: "users#show"
+
+  get "/filter", to: 'restaurants#filter'
 
   get '/hello', to: 'application#hello_world'
 

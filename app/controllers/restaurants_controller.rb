@@ -23,6 +23,12 @@ class RestaurantsController < ApplicationController
         render json: restaurant
     end
 
+    def filter 
+        page = params[:page]
+        restaurants = Restaurant.where(food_type: params[:food_type]).paginate(page: page, per_page: 10)
+        render json: restaurants
+    end
+
     # def page
     #     page = params[:page] || 1
     #     restaurants = Restaurant.paginate(page: page, per_page: 10)

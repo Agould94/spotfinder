@@ -6,6 +6,14 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 require 'faker'
+# require 'unsplash'
+
+# result = Unsplash::Photo.search('food')
+# images = result.map do |obj|
+#    return obj.to_h[:urls]["small"]
+# end
+# puts images
+
 
 puts "Seeding Users"
 
@@ -32,7 +40,7 @@ food_types = ["American", "Italian", "Chinese", "Mexican"]
         phone_number: Faker::PhoneNumber.phone_number,
         vibe: Faker::Adjective.positive,
         name: Faker::Restaurant.name,
-        image_url: "image_url",
+        image_url: 'image_url',
         food_type: food_types.sample
     )
 end

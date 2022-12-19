@@ -2,11 +2,24 @@ import React from 'react';
 import { useState } from 'react';
 import { Card, Image, Fade } from 'react-bootstrap';
 import {useHistory} from 'react-router-dom'
+import StarRatings from 'react-star-ratings'
 
 function RestaurantCard({ restaurant, handleSetRestaurant }) {
     const [reviewClick, setReviewClick] = useState(false)
     let image
+    let avg
+    let ratings = [0]
 
+    if(restaurant.reviews){
+      
+      restaurant.reviews.forEach((review)=>{
+        ratings.push(review.stars)
+      })
+      avg = ratings.reduce((a,b)=> a+b)/ratings.length
+      //console.log(avg)
+      console.log(ratings)
+    }
+    console.log(avg)
     const history = useHistory()
     
     function handleDoubleClick(){
@@ -29,7 +42,7 @@ function RestaurantCard({ restaurant, handleSetRestaurant }) {
       <Image src= {image} />
       <Card.Body>
         <div className="d-flex justify-content-between">
-          <div>
+          <div style ={{width: '50%'}}>
           <Card.Title>{restaurant.name}</Card.Title>
             <Card.Text>{restaurant.address}</Card.Text>
             <Card.Text>{restaurant.phone_number}</Card.Text>
@@ -37,6 +50,11 @@ function RestaurantCard({ restaurant, handleSetRestaurant }) {
           <div>
           <Card.Text as="h6">{restaurant.vibe}</Card.Text>
           <Card.Text>{restaurant.food_type}</Card.Text>
+          <StarRatings
+          rating = {avg}
+          starDimension = "15px"
+          starSpacing = ".5px"
+          />
           </div>
         </div>
         <div onClick = {handleClick}>

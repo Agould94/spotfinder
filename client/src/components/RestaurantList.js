@@ -2,8 +2,9 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import RestaurantCard from './RestaurantCard';
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { NavItem } from 'react-bootstrap';
 
-function RestaurantList({filter, handleSetRestaurant}) {
+function RestaurantList({filter, handleSetRestaurant, search}) {
   const [restaurants, setRestaurants] = useState([])
   const [filteredRestaurants, setFilteredRestaurants]=useState([])
   const [page, setPage] = useState(1)
@@ -12,6 +13,7 @@ function RestaurantList({filter, handleSetRestaurant}) {
   console.log(restaurants)
 
   console.log(filter)
+  console.log(search)
 
   useEffect(() => {
     const fetchRestaurants = async() => {
@@ -37,11 +39,12 @@ function RestaurantList({filter, handleSetRestaurant}) {
   }
 
   function fetchFilteredRestaurants(){
+    //setPage(1)
     fetch(`/restaurants?page=1&food_type=${filter}`)
     .then((r)=>r.json())
     .then((data)=>{
     setRestaurants([...data])
-    //setFilteredPage(1)
+    //setPage(1)
     })
   }
 
@@ -53,8 +56,25 @@ function RestaurantList({filter, handleSetRestaurant}) {
     fetchFilteredRestaurants()
   }, [filter])
   
-  const cards = restaurants
-  .map(restaurant => (
+  const selectedRestauraunts = restaurants
+  .filter((restaurant) => {
+    if(filter === "All" && search === 's'){
+      return true
+    }
+    else if(filter !="All" && search === 's'){
+      return restaurant.food_type === filter 
+    }
+    else if(search != "s"){
+      return restaurant.name.toLowerCase().includes(search.toLowerCase())
+    }
+  })
+  // .find((restaurant)=> {if(search === 's'){return null}
+  // else{
+  //    return restaurant.name.toLowerCase().includes(search.toLowerCase())
+  // }
+  // })
+
+  const resturauntsToDisplay =  selectedRestauraunts.map(restaurant => (
     <RestaurantCard key={restaurant.id} restaurant={restaurant} handleSetRestaurant={handleSetRestaurant} />
   ))
   
@@ -81,7 +101,7 @@ function RestaurantList({filter, handleSetRestaurant}) {
         endMessage = {<p style={{textAlign: 'center'}}>End</p>} 
         scrollableTarget = "scroll"
         >
-            {cards}
+            {resturauntsToDisplay}
         </InfiniteScroll>    
     </div>
   );
