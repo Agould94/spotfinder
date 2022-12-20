@@ -41,6 +41,9 @@ function App() {
             <Route path = {`/restaurants/${restaurant.id}`}>
                 <RestaurantPage restaurant = {restaurant} user = {user}></RestaurantPage>
             </Route>
+            <Route path = {'restaurants/create'} >
+              <AddRestaurantPage></AddRestaurantPage>
+            </Route>
             <Route path="/user">
               <UserProfile user = {user} onUpdateUser = {handleUpdateUser}></UserProfile>
             </Route>

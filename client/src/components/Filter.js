@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { Form, FormControl } from 'react-bootstrap';
+import { Form, FormControl, Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 function Filter({ setFilter, setSearch, setPage, search, filter }){
-
+  const history = useHistory()
+  function handleClick(){
+    history.push('/restaurants/create')
+  }
   return (
     <Form>
       <FormControl
@@ -30,7 +34,9 @@ function Filter({ setFilter, setSearch, setPage, search, filter }){
         <option value="Mexican">Mexican</option>
         {/* additional options here */}
       </FormControl>
+      <Button onClick = {handleClick}>Add New Restaurant</Button>
     </Form>
+  
   );
 };
 

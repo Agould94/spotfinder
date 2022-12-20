@@ -22,7 +22,9 @@ function SignUp({ setUser }) {
       }),
     })
       .then((r) => r.json())
-      .then((user)=>setUser(user.username));
+      .then((user)=>{setUser(user)
+      history.push("/")
+      });
   }
 
   return (
