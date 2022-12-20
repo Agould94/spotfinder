@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { Form, FormControl } from 'react-bootstrap';
 
-function Filter({ setFilter, setSearch }){
-  const [foodType, setFoodType] = useState('All');
-  const [searchTerm, setSearchTerm] = useState('')
+function Filter({ setFilter, setSearch, setPage, search, filter }){
 
   return (
     <Form>
       <FormControl
         as="input"
-        value = {searchTerm}
+        value = {search}
         onChange ={(e)=>{
-          setSearchTerm(e.target.value)
+     
           setSearch(e.target.value)
         }
         }
@@ -19,9 +17,9 @@ function Filter({ setFilter, setSearch }){
       </FormControl>
       <FormControl
         as="select"
-        value={foodType}
+        value={filter}
         onChange={(event) => {
-          setFoodType(event.target.value);
+          setPage(1)
           setFilter(event.target.value);
         }}
       >

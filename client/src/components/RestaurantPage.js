@@ -15,6 +15,11 @@ function RestaurantPage({restaurant, user}){
         <div>
             <p>{review.stars}</p>
             <p>{review.content}</p>
+            {review.user ?
+            <p>{review.user.username}</p>
+            :
+            null
+        }
         </div>
         )}
     )}

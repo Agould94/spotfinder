@@ -9,8 +9,7 @@ class RestaurantsController < ApplicationController
         else
             restaurants = Restaurant.where(food_type: params[:food_type]).paginate(page: page, per_page: 10)
         end
-        #paginated_restaurants = restaurants.paginate(page: page, per_page: 10)
-        render json: restaurants
+            render json: restaurants
     end
 
     def show

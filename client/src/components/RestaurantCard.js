@@ -16,10 +16,10 @@ function RestaurantCard({ restaurant, handleSetRestaurant }) {
         ratings.push(review.stars)
       })
       avg = ratings.reduce((a,b)=> a+b)/ratings.length
-      //console.log(avg)
-      console.log(ratings)
+      
+     
     }
-    console.log(avg)
+  
     const history = useHistory()
     
     function handleDoubleClick(){

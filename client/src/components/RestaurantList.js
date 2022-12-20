@@ -1,19 +1,13 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import RestaurantCard from './RestaurantCard';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { NavItem } from 'react-bootstrap';
 
-function RestaurantList({filter, handleSetRestaurant, search}) {
+function RestaurantList({filter, handleSetRestaurant, search, page, setPage}) {
   const [restaurants, setRestaurants] = useState([])
-  const [filteredRestaurants, setFilteredRestaurants]=useState([])
-  const [page, setPage] = useState(1)
-  const [filteredPage, setFilteredPage] = useState(1)
   const [loading, setLoading] = useState(false)
-  console.log(restaurants)
-
-  console.log(filter)
-  console.log(search)
+  const scrollElement = useRef(null)
 
   useEffect(() => {
     const fetchRestaurants = async() => {
@@ -39,47 +33,43 @@ function RestaurantList({filter, handleSetRestaurant, search}) {
   }
 
   function fetchFilteredRestaurants(){
-    //setPage(1)
-    fetch(`/restaurants?page=1&food_type=${filter}`)
+    console.log(page)
+    fetch(`/restaurants?page=${page}&food_type=${filter}`)
     .then((r)=>r.json())
     .then((data)=>{
-    setRestaurants([...data])
-    //setPage(1)
+      if(page === 1){
+        console.log("first if")
+        setRestaurants(data)
+      }else{
+        console.log("else")
+        setRestaurants([...restaurants, ...data])
+      }
     })
   }
 
-  useEffect(()=>{
-    fetchMoreRestaurants()
-  },[page])
+  function resetScrollPosition(){
+    const element = scrollElement.current
+    element.scrollTop = 0;
+  }
 
   useEffect(()=>{
     fetchFilteredRestaurants()
-  }, [filter])
-  
-  const selectedRestauraunts = restaurants
-  .filter((restaurant) => {
-    if(filter === "All" && search === 's'){
-      return true
-    }
-    else if(filter !="All" && search === 's'){
-      return restaurant.food_type === filter 
-    }
-    else if(search != "s"){
-      return restaurant.name.toLowerCase().includes(search.toLowerCase())
-    }
-  })
-  // .find((restaurant)=> {if(search === 's'){return null}
-  // else{
-  //    return restaurant.name.toLowerCase().includes(search.toLowerCase())
-  // }
-  // })
+  }, [filter, page])
 
-  const resturauntsToDisplay =  selectedRestauraunts.map(restaurant => (
+  useEffect(()=>{
+    resetScrollPosition()
+  }, [filter]
+  )
+  
+  const searchRestaurants = restaurants.filter((restaurant)=>{
+    return restaurant.name.toLowerCase().includes(search.toLowerCase())
+  })
+
+  const resturauntsToDisplay = searchRestaurants.map(restaurant => (
     <RestaurantCard key={restaurant.id} restaurant={restaurant} handleSetRestaurant={handleSetRestaurant} />
   ))
   
   function handleLoadMore(){
-    console.log("howdy")
       if(restaurants.length<50){
         setPage(prevPage=>{
           const newPage = prevPage+1
@@ -93,13 +83,14 @@ function RestaurantList({filter, handleSetRestaurant, search}) {
   
 
   return (
-    <div id = "scroll" className = "justify-content-center" style={{height:'1000px' , overflow: 'scroll'}}>
+    <div ref = {scrollElement} id = "scroll" className = "justify-content-center" style={{height:'1000px' , overflow: 'scroll'}}>
         <InfiniteScroll 
         dataLength = {restaurants.length}  
         next = {handleLoadMore} 
         hasMore={true}
         endMessage = {<p style={{textAlign: 'center'}}>End</p>} 
         scrollableTarget = "scroll"
+        initialScrollY={0}
         >
             {resturauntsToDisplay}
         </InfiniteScroll>    

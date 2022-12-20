@@ -7,15 +7,19 @@ import RestaurantList from './RestaurantList';
 
 function Home({handleSetRestaurant}) {
     const [filter, setFilter] = useState("All")
-    const [search, setSearch] = useState('s')
+    const [search, setSearch] = useState('')
+    const [page, setPage] = useState(1)
+    console.log(search)
+
+
   return (
     <Container className="justify-content-center home">
       <Row className="justify-content-center" infinite="true">
             <Col>
-                <Filter setFilter = {setFilter} setSearch = {setSearch}></Filter>
+                <Filter search = {search} filter = {filter} setPage={setPage} setFilter = {setFilter} setSearch = {setSearch}></Filter>
             </Col>
             <Col>
-                <RestaurantList filter = {filter} search = {search} handleSetRestaurant = {handleSetRestaurant}/>
+                <RestaurantList page = {page} setPage = {setPage} filter = {filter} search = {search} handleSetRestaurant = {handleSetRestaurant}/>
             </Col>
             <Col>
                 map
