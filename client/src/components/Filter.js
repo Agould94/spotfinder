@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 function Filter({ setFilter, setSearch, setPage, search, filter }){
   const history = useHistory()
   function handleClick(){
-    history.push('/restaurants/create')
+    history.push('/new')
   }
   return (
     <Form>

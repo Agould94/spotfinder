@@ -1,18 +1,35 @@
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import ReviewForm from "./ReviewForm";
+import { useParams } from "react-router-dom";
 
 
 
-function RestaurantPage({restaurant, user}){
+function RestaurantPage({user}){
+    const[restaurant, setRestaurant] = useState({})
+    const [reviews, setReviews]= useState([])
+    let params = useParams()
+    console.log("HIIIIII")
+    console.log(params.id)
+    console.log(restaurant)
     
-    const [reviews, setReviews]= useState(restaurant.reviews)
-    
-    
+    useEffect(()=>{
+        fetch(`/restaurants/${params.id}`)
+        .then((r)=>r.json())
+        .then((data)=>{
+            console.log(data) 
+            console.log("effect")
+            setRestaurant(data)
+            setReviews(data.reviews)
+        })
+    },[]
+    );
+   
+
     let reviewsToDisplay 
-    if(restaurant.reviews){
+    if(reviews){
         reviewsToDisplay = reviews.map((review)=>{
         return(
-        <div>
+        <div key = {review.id}>
             <p>{review.stars}</p>
             <p>{review.content}</p>
             {review.user ?

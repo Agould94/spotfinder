@@ -4,7 +4,7 @@ import { Card, Image, Fade } from 'react-bootstrap';
 import {useHistory} from 'react-router-dom'
 import StarRatings from 'react-star-ratings'
 
-function RestaurantCard({ restaurant, handleSetRestaurant }) {
+function RestaurantCard({ restaurant }) {
     const [reviewClick, setReviewClick] = useState(false)
     let image
     let avg
@@ -23,7 +23,6 @@ function RestaurantCard({ restaurant, handleSetRestaurant }) {
     const history = useHistory()
     
     function handleDoubleClick(){
-        handleSetRestaurant(restaurant)
         history.push(`/restaurants/${restaurant.id}`)
     }
     function handleClick(){

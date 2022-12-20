@@ -6,13 +6,14 @@ import Home from './components/Home';
 import NavBar from './components/Navbar';
 import UserProfile from './components/UserProfile';
 import RestaurantPage from './components/RestaurantPage';
+import AddRestaurantPage from './components/AddRestaurantPage';
 
 function App() {
   //const [count, setCount] = useState(0)
   const [user, setUser] = useState(null)
-  const [restaurant, setRestaurant]= useState({})
+  //const [restaurant, setRestaurant]= useState({})
   console.log(user)
-  console.log(restaurant)
+
 
   useEffect(() => {
     // auto-login
@@ -35,20 +36,17 @@ function App() {
       <main>
         {user ? (
           <Switch>
+             <Route path = "/restaurants/:id" >
+                <RestaurantPage user = {user}></RestaurantPage>
+            </Route>
             <Route exact path="/">
-              <Home user={user} handleSetRestaurant={setRestaurant}/>
+              <Home user={user}/>
             </Route>
-            <Route path = {`/restaurants/${restaurant.id}`}>
-                <RestaurantPage restaurant = {restaurant} user = {user}></RestaurantPage>
-            </Route>
-            <Route path = {'restaurants/create'} >
+            <Route path = {'/new'} >
               <AddRestaurantPage></AddRestaurantPage>
             </Route>
             <Route path="/user">
               <UserProfile user = {user} onUpdateUser = {handleUpdateUser}></UserProfile>
-            </Route>
-            <Route path="/">
-
             </Route>
           </Switch>
         ) : (

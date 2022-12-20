@@ -19,7 +19,7 @@ class RestaurantsController < ApplicationController
 
     def create
         restaurant = Restaurant.create!(restaurant_params)
-        render json: restaurant
+        render json: restaurant, status: :created
     end
 
     def filter 
@@ -41,7 +41,7 @@ class RestaurantsController < ApplicationController
     end
 
     def restaurant_params
-        params.permit(:name, :address, :phone_number, :vibe)
+        params.permit(:name, :address, :phone_number, :vibe, :food_type)
     end
 
     def render_not_found_response
