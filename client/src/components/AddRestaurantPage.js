@@ -15,13 +15,6 @@ function AddRestaurantPage() {
   
 
         const history=useHistory()
-     const restaurant={
-        name: name,
-        vibe: vibe,
-        address: address, 
-        food_type: food_type,
-        phone_number: phone_number
-     }
 
      function handleChange(e){
         switch(e.target.id){

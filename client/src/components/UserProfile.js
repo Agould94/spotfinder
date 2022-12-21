@@ -13,13 +13,13 @@ function UserProfile({user, onUpdateUser}){
     }
 
     function handleChange(e){
-       if(e.target.id == "name"){
+       if(e.target.id === "name"){
         setName(e.target.value)
-       }else if(e.target.id =="email"){
+       }else if(e.target.id ==="email"){
         setEmail(e.target.value)
-       }else if (e.target.id =="vibe"){
+       }else if (e.target.id ==="vibe"){
         setVibe(e.target.value)
-       }else if(e.target.id == "zip"){
+       }else if(e.target.id === "zip"){
         setZip(e.target.value)
        }
     }

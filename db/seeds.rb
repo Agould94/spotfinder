@@ -8,6 +8,8 @@
 require 'faker'
 require 'unsplash'
 
+puts "seeding images"
+
 num = 1
 result = Unsplash::Photo.search('food', 1, 30)
  result.each do |unsplash_image|
@@ -39,48 +41,50 @@ dresult = Unsplash::Photo.search('food', 3, 30)
    )
 end
 
-# puts "Seeding Users"
+puts "images seeded"
 
-# 20.times do |count|
-#     User.create(
-#         name: Faker::Name.name,
-#         username: Faker::Internet.username,
-#         email: Faker::Internet.safe_email,
-#         password: Faker::Internet.password,
-#         vibe: Faker::Adjective.positive,
-#         zip: Faker::Address.zip_code
-#     )
-# end
+puts "Seeding Users"
 
-# puts "Users created"
+20.times do |count|
+    User.create(
+        name: Faker::Name.name,
+        username: Faker::Internet.username,
+        email: Faker::Internet.safe_email,
+        password: Faker::Internet.password,
+        vibe: Faker::Adjective.positive,
+        zip: Faker::Address.zip_code
+    )
+end
 
-# puts "Seeding Restauraunts"
+puts "Users created"
 
-# food_types = ["American", "Italian", "Chinese", "Mexican"]
+puts "Seeding Restauraunts"
 
-# 50.times do |count|
-#     Restaurant.create(
-#         address: Faker::Address.full_address,
-#         phone_number: Faker::PhoneNumber.phone_number,
-#         vibe: Faker::Adjective.positive,
-#         name: Faker::Restaurant.name,
-#         image_url: 'image_url',
-#         food_type: food_types.sample
-#     )
-# end
+food_types = ["American", "Italian", "Chinese", "Mexican"]
 
-# puts "Restaurants created"
+50.times do |count|
+    Restaurant.create(
+        address: Faker::Address.full_address,
+        phone_number: Faker::PhoneNumber.phone_number,
+        vibe: Faker::Adjective.positive,
+        name: Faker::Restaurant.name,
+        image_url: 'image_url',
+        food_type: food_types.sample
+    )
+end
 
-# puts "seeding reviews"
+puts "Restaurants created"
 
-# 30.times do |count|
-#     Review.create(
-#         stars: rand(1..5),
-#         content: Faker::Hipster.paragraph,
-#         restaurant_id: rand(1..50),
-#         user_id: rand(1..20)
-#     )
-# end
+puts "seeding reviews"
+
+30.times do |count|
+    Review.create(
+        stars: rand(1..5),
+        content: Faker::Hipster.paragraph,
+        restaurant_id: rand(1..50),
+        user_id: rand(1..20)
+    )
+end
 
 
-# puts "database seeded"
+puts "database seeded"

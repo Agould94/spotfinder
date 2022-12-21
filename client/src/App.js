@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {BrowserRouter, Switch, Route} from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
 import Login from './components/Login';
 import SignUp from './components/Signup';
 import Home from './components/Home';

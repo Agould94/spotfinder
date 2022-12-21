@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Card, Image, Fade } from 'react-bootstrap';
+import { Card, Image } from 'react-bootstrap';
 import {useHistory} from 'react-router-dom'
 import StarRatings from 'react-star-ratings'
 
@@ -29,12 +29,7 @@ function RestaurantCard({ restaurant }) {
         setReviewClick(!reviewClick)
     }
 
-        if(restaurant.image_url == "image_url"){
-            image = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
-        }
-        else{
-            image =restaurant.image_url
-        }
+
     
   return (
     <Card onDoubleClick={handleDoubleClick} className = "justify-content-center mx-auto mt-2" style={{width: "44%"}}>

@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import RestaurantCard from './RestaurantCard';
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { NavItem } from 'react-bootstrap';
+
 
 function RestaurantList({filter, handleSetRestaurant, search, page, setPage}) {
   const [restaurants, setRestaurants] = useState([])
@@ -22,15 +22,6 @@ function RestaurantList({filter, handleSetRestaurant, search, page, setPage}) {
     fetchRestaurants();
   }, []);
 
-  function fetchMoreRestaurants(){
-    console.log(page)
-    console.log(filter)
-    fetch(`/restaurants?page=${page}&food_type=${filter}`)
-    .then((r)=>r.json())
-    .then((data)=>{console.log(data) 
-    setRestaurants([...restaurants, ...data])})
-    
-  }
 
   function fetchFilteredRestaurants(){
     console.log(page)
