@@ -8,40 +8,7 @@
 require 'faker'
 require 'unsplash'
 
-puts "seeding images"
 
-num = 1
-result = Unsplash::Photo.search('food', 1, 30)
- result.each do |unsplash_image|
-    puts num+=1
-    puts unsplash_image.urls.regular
-    Image.create!(
-    image: unsplash_image.urls.regular,
-    restaurant_id: rand(1..50)
-   )
-end
-
-nresult = Unsplash::Photo.search('food', 2, 30)
- nresult.each do |unsplash_image|
-    puts num+=1
-    puts unsplash_image.urls.regular
-    Image.create!(
-    image: unsplash_image.urls.regular,
-    restaurant_id: rand(1..50)
-   )
-end
-
-dresult = Unsplash::Photo.search('food', 3, 30)
- dresult.each do |unsplash_image|
-    puts num+=1
-    puts unsplash_image.urls.regular
-    Image.create!(
-    image: unsplash_image.urls.regular,
-    restaurant_id: rand(1..50)
-   )
-end
-
-puts "images seeded"
 
 puts "Seeding Users"
 
@@ -85,6 +52,41 @@ puts "seeding reviews"
         user_id: rand(1..20)
     )
 end
+
+puts "seeding images"
+
+num = 1
+result = Unsplash::Photo.search('food', 1, 30)
+ result.each do |unsplash_image|
+    puts num+=1
+    puts unsplash_image.urls.regular
+    Image.create!(
+    image: unsplash_image.urls.regular,
+    restaurant_id: rand(1..50)
+   )
+end
+
+nresult = Unsplash::Photo.search('food', 2, 30)
+ nresult.each do |unsplash_image|
+    puts num+=1
+    puts unsplash_image.urls.regular
+    Image.create!(
+    image: unsplash_image.urls.regular,
+    restaurant_id: rand(1..50)
+   )
+end
+
+dresult = Unsplash::Photo.search('food', 3, 30)
+ dresult.each do |unsplash_image|
+    puts num+=1
+    puts unsplash_image.urls.regular
+    Image.create!(
+    image: unsplash_image.urls.regular,
+    restaurant_id: rand(1..50)
+   )
+end
+
+puts "images seeded"
 
 
 puts "database seeded"
