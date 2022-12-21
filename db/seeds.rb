@@ -35,8 +35,7 @@ food_types = ["American", "Italian", "Chinese", "Mexican"]
         phone_number: Faker::PhoneNumber.phone_number,
         vibe: Faker::Adjective.positive,
         name: Faker::Restaurant.name,
-        image_url: 'image_url',
-        food_type: food_types.sample
+        food_type: ["American", "Italian", "Chinese", "Mexican"].sample
     )
 end
 
