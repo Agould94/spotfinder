@@ -2,7 +2,7 @@ class CreateImages < ActiveRecord::Migration[7.0]
   def change
     create_table :images do |t|
       t.string :image
-      t.integer :resturaunt_id
+      t.integer :restaurant_id
 
       t.timestamps
     end

@@ -38,7 +38,7 @@ function RestaurantCard({ restaurant }) {
     
   return (
     <Card onDoubleClick={handleDoubleClick} className = "justify-content-center mx-auto mt-2" style={{width: "44%"}}>
-      <Image src= {image} />
+      <Image src= {restaurant.images[0].image} />
       <Card.Body>
         <div className="d-flex justify-content-between">
           <div style ={{width: '50%'}}>

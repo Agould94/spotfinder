@@ -45,6 +45,14 @@ function RestaurantPage({user}){
         setReviews([...reviews, data])
     }
 
+    let imagesToDisplay
+    if(restaurant.images){
+         imagesToDisplay = restaurant.images.map((image)=>{
+       
+            return <img key = {image.id} src = {image.image} className="p-2" style = {{width: '150px', height: '150px'}}></img>
+    }
+    )
+    }
 
     return(
         <div>
@@ -54,6 +62,7 @@ function RestaurantPage({user}){
             <p>{restaurant.food_type}</p>
             <p>{restaurant.address}</p>
             <p>{restaurant.phone_number}</p>
+            {imagesToDisplay}
             <ReviewForm restaurant={restaurant} user = {user} onReviewSubmit={handleReviewSubmit} ></ReviewForm>
             {restaurant.reviews ? 
                 reviewsToDisplay

@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_133839) do
 
   create_table "images", force: :cascade do |t|
     t.string "image"
-    t.integer "resturaunt_id"
+    t.integer "restaurant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
