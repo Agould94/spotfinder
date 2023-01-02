@@ -16,6 +16,16 @@ class ReviewsController < ApplicationController
         render json: review
     end
 
+    def destroy
+        review = find_review
+        if review
+            review.destroy
+            head :no_content
+        else
+            render json: {error: "review not found"}, status: :not_found
+        end
+    end
+
 
     private
 

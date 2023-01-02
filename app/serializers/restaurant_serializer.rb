@@ -3,4 +3,5 @@ class RestaurantSerializer < ActiveModel::Serializer
 
   has_many :reviews
   has_many :images
+  has_many :users
 end

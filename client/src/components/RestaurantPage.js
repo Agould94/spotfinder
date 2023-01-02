@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import ReviewForm from "./ReviewForm";
 import { useParams } from "react-router-dom";
+import StarRatings from "react-star-ratings";
 
 
 
@@ -11,7 +12,8 @@ function RestaurantPage({user}){
     console.log("HIIIIII")
     console.log(params.id)
     console.log(restaurant)
-    
+    console.log(user)
+
     useEffect(()=>{
         fetch(`/restaurants/${params.id}`)
         .then((r)=>r.json())
@@ -24,19 +26,42 @@ function RestaurantPage({user}){
     },[]
     );
    
+    function handleDeleteReview(e){
+        const id = e.target.value
+        let newReviews
+        fetch(`/reviews/${id}`,{
+            method: "DELETE", 
+            headers: {
+                'Content-type': 'application/json',
+            },
+        })
+
+        newReviews = reviews.filter((review)=> review.id != id)
+        setReviews(newReviews)
+    }
 
     let reviewsToDisplay 
     if(reviews){
         reviewsToDisplay = reviews.map((review)=>{
+            console.log(review)
         return(
         <div key = {review.id}>
-            <p>{review.stars}</p>
+            <StarRatings
+          rating = {review.stars}
+          starDimension = "15px"
+          starSpacing = ".5px"
+          />
             <p>{review.content}</p>
-            {review.user ?
-            <p>{review.user.username}</p>
+            {review.user ? 
+                <p>{review.user.username}</p>
+                :
+                null
+            }
+            {review.user.id === user.id ?
+            <button value = {review.id} onClick = {handleDeleteReview}>Delete Your Review</button>
             :
             null
-        }
+            }
         </div>
         )}
     )}
