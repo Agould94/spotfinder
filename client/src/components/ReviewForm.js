@@ -8,6 +8,8 @@ function ReviewForm({restaurant, user, onReviewSubmit}) {
 
     const [rating, setRating] = useState(1)
 
+    const [errors, setErrors] = useState("")
+
     function handleChangeRating(e){
         setRating(e)
     }
@@ -26,7 +28,12 @@ function ReviewForm({restaurant, user, onReviewSubmit}) {
            r.json()
         ).then((data)=>{
         console.log(data)
-        onReviewSubmit(data)
+        if(data.errors){
+            setErrors(data.errors[0])
+        }else{
+            onReviewSubmit(data)
+            setErrors("")
+        }
         formRef.current.reset()
     })
         ;
@@ -48,6 +55,7 @@ function ReviewForm({restaurant, user, onReviewSubmit}) {
             <br/>
         <label>Add a Review:</label>
         <FormControl as="input" type="text" placeholder="Enter text" value = {content} onChange={(e)=>setContent(e.target.value)} />
+        {errors ? <div>{errors}</div> : null}
         <Button type="submit">Submit</Button>
         </Form>
     </div>
