@@ -9,20 +9,16 @@ function RestaurantPage({user}){
     const[restaurant, setRestaurant] = useState({})
     const [reviews, setReviews]= useState([])
     let params = useParams()
-    console.log("HIIIIII")
-    console.log(params.id)
-    console.log(restaurant)
-    console.log(user)
+
 
     useEffect(()=>{
         fetch(`/restaurants/${params.id}`)
         .then((r)=>r.json())
         .then((data)=>{
-            console.log(data) 
-            console.log("effect")
             setRestaurant(data)
             setReviews(data.reviews)
         })
+
     },[]
     );
    
@@ -43,7 +39,6 @@ function RestaurantPage({user}){
     let reviewsToDisplay 
     if(reviews){
         reviewsToDisplay = reviews.map((review)=>{
-            console.log(review)
         return(
         <div key = {review.id}>
             <StarRatings

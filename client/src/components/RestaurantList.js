@@ -14,8 +14,6 @@ function RestaurantList({filter, handleSetRestaurant, search, page, setPage}) {
         setLoading(true)
         const response = await fetch(`/restaurants?page=1&food_type=${filter}`) //
         const data = await response.json()
-        console.log([...data])
-        console.log(restaurants)
         setLoading(false);
         setRestaurants(data)
     }
@@ -24,15 +22,12 @@ function RestaurantList({filter, handleSetRestaurant, search, page, setPage}) {
 
 
   function fetchFilteredRestaurants(){
-    console.log(page)
     fetch(`/restaurants?page=${page}&food_type=${filter}`)
     .then((r)=>r.json())
     .then((data)=>{
       if(page === 1){
-        console.log("first if")
         setRestaurants(data)
       }else{
-        console.log("else")
         setRestaurants([...restaurants, ...data])
       }
     })
@@ -66,9 +61,7 @@ function RestaurantList({filter, handleSetRestaurant, search, page, setPage}) {
           const newPage = prevPage+1
           return newPage
         })
-      }
-    console.log(page)
-    
+      } 
   }
 
   

@@ -9,7 +9,6 @@ function Home({handleSetRestaurant}) {
     const [filter, setFilter] = useState("All")
     const [search, setSearch] = useState('')
     const [page, setPage] = useState(1)
-    console.log(search)
 
 
   return (

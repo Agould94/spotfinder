@@ -4,6 +4,7 @@ import StarRatings from 'react-star-ratings'
 
 
 function ReviewForm({restaurant, user, onReviewSubmit}) {
+    console.log(user)
     const [content, setContent] = useState("")
 
     const [rating, setRating] = useState(1)
@@ -14,24 +15,31 @@ function ReviewForm({restaurant, user, onReviewSubmit}) {
         setRating(e)
     }
 
+    function updateUserReviews(review){
+       user.reviews = [...user.reviews, review]
+       user.restaurants.push(restaurant)
+    }
+
     const formRef=useRef(null)
 
     function handleSubmit(e) {
         e.preventDefault();
+        const review = { stars: rating, content: content, user_id: user.id, restaurant_id: restaurant.id  }
         fetch("/reviews", {
             method: "POST",
             headers: {
                "Content-Type": "application/json",
             },
-            body: JSON.stringify({ stars: rating, content: content, user_id: user.id, restaurant_id: restaurant.id  }),
+            body: JSON.stringify(review),
         }).then((r) => 
            r.json()
         ).then((data)=>{
-        console.log(data)
+    
         if(data.errors){
             setErrors(data.errors[0])
         }else{
             onReviewSubmit(data)
+            updateUserReviews(review)
             setErrors("")
         }
         formRef.current.reset()

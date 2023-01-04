@@ -7,12 +7,6 @@ function AddRestaurantPage() {
      const [address, setAddress]=useState('')
      const [food_type, setFoodType]=useState('')
      const [phone_number, setPhoneNumber]=useState('')
-    console.log(name)
-    console.log(address)
-    console.log(vibe)
-    console.log(food_type)
-    console.log(phone_number)
-  
 
         const history=useHistory()
 
@@ -52,8 +46,6 @@ function AddRestaurantPage() {
             })
         }).then((r)=>r.json())
         .then((restaurant)=>{
-            console.log(restaurant)
-            console.log("something")
             history.push(`/restaurants/${restaurant.id}`)
         })
      }

@@ -7,7 +7,6 @@ function UserProfile({user, onUpdateUser}){
     const [vibe, setVibe] = useState(user.vibe)
     const [zip, setZip] = useState(user.zip)
     
-    console.log(user.restaruants)
 
     function handleClick(){
         setClicked(!clicked)
@@ -56,9 +55,13 @@ return (
     <h1>
         {user.username}
     </h1>
+    <h6>Name:</h6>
     <p>{user.name}</p>
+    <h6>Vibe:</h6>
     <p>{user.vibe}</p>
+    <h6>email:</h6>
     <p>{user.email}</p>
+    <h6>zip:</h6>
     <p>{user.zip}</p>
     <div>
         {user.restaurants ? 
