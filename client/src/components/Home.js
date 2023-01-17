@@ -1,27 +1,37 @@
 import React, {useState} from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Badge } from 'react-bootstrap';
 import Filter from './Filter';
 import RestaurantList from './RestaurantList';
 
 
 
-function Home({handleSetRestaurant}) {
-    const [filter, setFilter] = useState("All")
+function Home({setRestaurantPage, restaurants, setRestaurants, tags, setTags, handleSetTags}){
+   const [filter, setFilter] = useState("All")
     const [search, setSearch] = useState('')
     const [page, setPage] = useState(1)
 
+    let displayTags
+      if(tags){
+      displayTags = tags.map((tag)=>
+        <li>
+        <Badge>{tag}</Badge>
+        </li>
+      )
+    }
 
   return (
-    <Container className="justify-content-center home">
+    <Container fluid className="justify-content-center home ">
       <Row className="justify-content-center" infinite="true">
-            <Col>
+            <Col className = "orange">
                 <Filter search = {search} filter = {filter} setPage={setPage} setFilter = {setFilter} setSearch = {setSearch}></Filter>
             </Col>
-            <Col>
-                <RestaurantList page = {page} setPage = {setPage} filter = {filter} search = {search} handleSetRestaurant = {handleSetRestaurant}/>
+            <Col className = "green">
+                <RestaurantList page = {page} setPage = {setPage} filter = {filter} search = {search} setRestaurantPage={setRestaurantPage} restaurants={restaurants} setRestaurants={setRestaurants} handleSetTags = {handleSetTags}/>
             </Col>
-            <Col>
-                map
+            <Col className = "orange">
+                <div>Popular Tags:</div>
+
+                <ol>{displayTags}</ol>
             </Col>
       </Row>
     </Container>

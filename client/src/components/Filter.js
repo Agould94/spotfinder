@@ -8,12 +8,11 @@ function Filter({ setFilter, setSearch, setPage, search, filter }){
     history.push('/new')
   }
   return (
-    <Form>
+    <Form className = {"mt-3"}>
       <FormControl
         as="input"
         value = {search}
         onChange ={(e)=>{
-     
           setSearch(e.target.value)
         }
         }
@@ -34,7 +33,7 @@ function Filter({ setFilter, setSearch, setPage, search, filter }){
         <option value="Mexican">Mexican</option>
         {/* additional options here */}
       </FormControl>
-      <Button onClick = {handleClick}>Add New Restaurant</Button>
+      <Button onClick = {handleClick} className = {"mt-3"}>Add New Restaurant</Button>
     </Form>
   
   );

@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { NavItem } from "react-bootstrap";
 
 function UserProfile({user, onUpdateUser}){
     const [clicked, setClicked] = useState(false)
@@ -49,6 +50,8 @@ function UserProfile({user, onUpdateUser}){
         .then((data)=>console.log(data))
     }
 
+    const uniqueRestaurants = user.restaurants.filter((item, index, self)=> self.findIndex(t=> t.id===item.id)===index)
+
 
 return (
 <div>
@@ -70,7 +73,7 @@ return (
         null
         }
         {user.restaurants ?
-        user.restaurants.map((restaurant)=>
+        uniqueRestaurants.map((restaurant)=>
         <p>{restaurant.name}</p>
         )
         :

@@ -1,7 +1,9 @@
 class RestaurantsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
-   
+    
+    before_action :logged_in?, only: [:create, :update]
+
     def index
         page = params[:page] || 1
         if params[:food_type] == "All" 
@@ -14,7 +16,8 @@ class RestaurantsController < ApplicationController
 
     def show
         restaurant = find_restaurant
-        render json: restaurant
+        popular_tags = Tag.popular_tags
+        render json: restaurant, popular_tags: popular_tags
     end
 
     def create
@@ -28,11 +31,27 @@ class RestaurantsController < ApplicationController
         render json: restaurants
     end
 
-    # def page
-    #     page = params[:page] || 1
-    #     restaurants = Restaurant.paginate(page: page, per_page: 10)
-    #     render json: restaurants
-    # end
+    def update
+        restaurant = find_restaurant
+        puts params[:review_tags]
+        review_tags = params[:review_tags]
+        tags = review_tags.map do |tag|
+            if Tag.find_by(tag:tag)
+                Tag.find_by(tag: tag)
+            else
+                Tag.create(tag: tag, tally: 1)
+            end
+        end
+
+        tags.each do |t|
+            restaurant.tags.push(t)
+            t.increment(:tally).save
+        end
+
+        render json: restaurant
+    end
+
+
 
     private 
 

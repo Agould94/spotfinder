@@ -4,6 +4,10 @@ class User < ApplicationRecord
     has_many :reviews
     has_many :restaurants, ->{distinct}, through: :reviews
 
+    has_many :images
+
+    has_many :user_tags
+    has_many :tags, through: :user_tags
 
     #validates :name, presence: true
     validates :username, presence: true

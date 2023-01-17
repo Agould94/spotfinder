@@ -12,7 +12,7 @@ function NavBar({user, setUser}) {
     }
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="success" expand="lg">
       <Navbar.Brand>
         <Nav.Link as = {NavLink} exact to={`/`}>
         SpotFinder
@@ -21,7 +21,7 @@ function NavBar({user, setUser}) {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
-            { user ?
+            {user ?
             <Nav>
                 <Nav.Item>
                     <Nav.Link as ={NavLink} to={"/user"}>

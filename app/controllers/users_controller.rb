@@ -15,6 +15,7 @@ class UsersController < ApplicationController
     def create
         user = User.create!(user_params)
         if user.valid?
+            session[:user_id]= user.id
             render json: user, status: :created
         else
             render json: {errors: user.errors.full_messages}, status: :unprocessable_entity
@@ -29,7 +30,7 @@ class UsersController < ApplicationController
 
     def destroy
         user = find_user
-        if user
+        if user == current_user 
             user.destroy
             head :no_content
         else

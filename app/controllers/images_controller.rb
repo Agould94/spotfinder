@@ -1,14 +1,9 @@
 class ImagesController < ApplicationController
-    def index
-        
-    end
 
-    def show
-    end
 
-    def create
-    end
+    private 
 
-    def destroy
+    def image_params
+        params.permit(:image, restaurant_id)
     end
 end

@@ -1,6 +1,9 @@
 class ReviewsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+
+    before_action :logged_in?, only: [:create, :destroy]
+
     def index
         review = Review.all 
         render json: review
@@ -30,7 +33,8 @@ class ReviewsController < ApplicationController
     private
 
     def review_params
-        params.permit(:stars, :content, :restaurant_id, :user_id)
+        params[:review]=params[:review].merge(user_id: session[:user_id])
+        params.require(:review).permit(:stars, :content, :restaurant_id, :user_id)
     end
 
     def find_review

@@ -4,10 +4,12 @@ import RestaurantCard from './RestaurantCard';
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 
-function RestaurantList({filter, handleSetRestaurant, search, page, setPage}) {
-  const [restaurants, setRestaurants] = useState([])
+function RestaurantList({filter, search, page, setPage, setRestaurantPage, restaurants, setRestaurants, handleSetTags}) {
+  // const [restaurants, setRestaurants] = useState([])
+  console.log(page)
   const [loading, setLoading] = useState(false)
   const scrollElement = useRef(null)
+  console.log(restaurants)
 
   useEffect(() => {
     const fetchRestaurants = async() => {
@@ -16,11 +18,13 @@ function RestaurantList({filter, handleSetRestaurant, search, page, setPage}) {
         const data = await response.json()
         setLoading(false);
         setRestaurants(data)
+        
     }
-    fetchRestaurants();
+    fetchRestaurants()
+    
+    ;
   }, []);
-
-
+  
   function fetchFilteredRestaurants(){
     fetch(`/restaurants?page=${page}&food_type=${filter}`)
     .then((r)=>r.json())
@@ -52,7 +56,7 @@ function RestaurantList({filter, handleSetRestaurant, search, page, setPage}) {
   })
 
   const resturauntsToDisplay = searchRestaurants.map(restaurant => (
-    <RestaurantCard key={restaurant.id} restaurant={restaurant} handleSetRestaurant={handleSetRestaurant} />
+    <RestaurantCard key={restaurant.id} restaurant={restaurant} setRestaurantPage={setRestaurantPage} restaurants = {searchRestaurants}/>
   ))
   
   function handleLoadMore(){

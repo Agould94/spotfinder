@@ -3,4 +3,5 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :reviews
   has_many :restaurants
+  has_many :tags
 end

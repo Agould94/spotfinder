@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import {Switch, Route} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Login from './components/Login';
 import SignUp from './components/Signup';
 import Home from './components/Home';
@@ -11,24 +12,53 @@ import AddRestaurantPage from './components/AddRestaurantPage';
 function App() {
   //const [count, setCount] = useState(0)
   const [user, setUser] = useState(null)
-  //const [restaurant, setRestaurant]= useState({})
+  const [restaurants, setRestaurants] = useState([])
+  const [tags, setTags] = useState([])
+  console.log(tags)
+  console.log(restaurants)
+  
+  useEffect(()=>{
+    fetch("/popular_tags")
+    .then((r)=>r.json())
+    .then((t)=>setTags(t))
+  }, [])
+  
+  //console.log(restaurants[1].popular_tags)
+  
   console.log(user)
+  const [restaurantPage, setRestaurantPage]= useState({})
+  
+  const params = useParams()
 
+  function handleSetTags(tags){
+    setTags(tags)
+  }
 
   useEffect(() => {
     // auto-login
     fetch("/me")
     .then((r) => r.json())
     .then((data) => {
-      console.log(data) 
-      setUser(data)})
+      if(data.error){
+        console.log(data)
+      }else{
+        console.log(data) 
+        setUser(data)
+      }})
   }, []);
 
   function handleUpdateUser(updatedUser){
     setUser(updatedUser)
   }
+  function handleSetRestaurantPage(restaurant){
+    setRestaurantPage(restaurant)
+  }
 
- 
+  function handleRestaurantParams(){
+
+  }
+
+
 
   return (
     <>
@@ -37,10 +67,10 @@ function App() {
         {user ? (
           <Switch>
              <Route path = "/restaurants/:id" >
-                <RestaurantPage user = {user}></RestaurantPage>
+                <RestaurantPage user = {user}  restaurant = {restaurantPage} restaurants = {restaurants} tags = {tags} setTags = {setTags}></RestaurantPage>
             </Route>
             <Route exact path="/">
-              <Home user={user}/>
+              <Home user={user} setRestaurantPage = {handleSetRestaurantPage} restaurants={restaurants} setRestaurants={setRestaurants} tags = {tags} handleSetTags = {handleSetTags}/>
             </Route>
             <Route path = {'/new'} >
               <AddRestaurantPage></AddRestaurantPage>
@@ -51,6 +81,9 @@ function App() {
           </Switch>
         ) : (
           <Switch>
+            <Route path = "/restaurants/:id" >
+                <RestaurantPage user = {user} restaurant = {restaurantPage} restaurants = {restaurants} ></RestaurantPage>
+            </Route>
             <Route path="/signup">
               <SignUp setUser={setUser} />
             </Route>
@@ -58,8 +91,9 @@ function App() {
               <Login setUser={setUser} />
             </Route>
             <Route path="/">
-              <Home />
+              <Home setRestaurantPage = {handleSetRestaurantPage} restaurants={restaurants} setRestaurants={setRestaurants} tags = {tags} setTags = {setTags}/>
             </Route>
+
           </Switch>
         )}
       </main>
